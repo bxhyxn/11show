@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <title>김광일쇼</title>
+    <style>
+        @font-face {
+    font-family: 'KOTRALEAP';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/KOTRALEAP.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+        @font-face {
+        font-family: 'GongGothicLight';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicLight.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+        body {
+            display:block; width:100%; height:100%; margin:0; padding:0;
+            
+        }
+        textarea, input {
+            font-family: 'GongGothicLight';
+            border:none; 
+            background-color:transparent;
+            color: #8d8d8d;
+            overflow: auto;
+            resize: none;
+            width:98%;
+            margin: 0;
+        }
+        span {
+            font-family: 'GongGothicLight';
+        }
+        btn {
+            
+        }
+        .container {
+/*            padding:3vh 10%;*/
+            margin:0 auto;
+/*            border:1px solid black;*/
+            width:1920px; height:1080px;
+            background: url(bg.jpg) no-repeat center center fixed; 
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover
+        }
+        .container:fullscreen {
+            background: url(bg.jpg) no-repeat center center fixed; 
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            padding-top:3vh;
+            margin:0 auto;
+            
+        }
+        
+        .title_area, .text_area {
+/*            resize: vertical;*/
+            
+            overflow: auto;
+            -ms-overflow-style: none; /* IE and Edge */
+                scrollbar-width: none; /* Firefox */
+        }
+        
+        .title_area::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera*/
+        }
+        .title_area{
+            min-height: 5vh;
+            overflow: auto;
+            padding-top: 1vw;
+        }
+        .title_area:hover {
+            resize: vertical;
+            
+        }
+        .input_title {
+            display: block;
+            font-family: 'KOTRALEAP';
+            font-size: 3.5vw;
+            line-height: 6vw;
+            color: #a37d4c;
+            text-align: center;
+            margin:0 auto;
+            margin-top: 0.2vw;
+        }
+        .rp_area_cover {
+            display: flex;
+            margin: 0 auto;
+            width:100%;
+        }
+        .rp_area {
+/*            border:1px solid red;*/
+            padding: 0 0.8vw;
+            overflow: auto;
+/*            resize: horizontal;*/
+            margin:0 auto;
+            
+            display: inline-flex;align-content: center;
+            flex-direction: column;
+            min-width:70%;
+            border-top:4px solid #a37d4c;
+            padding-top: 1.6vw;
+             
+            
+        }
+        .rp_area:hover {
+            resize: horizontal;
+        }
+    
+        .rp_each {
+/*            border:1px solid red;*/
+            display: flex;
+/*            background-color: lightcyan;*/
+            padding-bottom: 0.6vw;
+            margin-bottom: 0.6vw;
+            border-bottom: 0.1vw solid #d5d5d5;
+        }
+        .name_area {
+/*            border:1px solid red;*/
+
+            display: flex;
+            align-items: center;
+            color: #8d8d8d;
+            margin-right: 4vw;
+/*            width:23%;*/
+            
+        }
+        .name_area .icon {
+            width:3.1vw;
+        }
+        .nametext {
+/*            display: flex;flex-direction:row;*/
+        }
+        .namebox {
+            width: fit-content;
+                height:100%;
+            font-size: 1.7vw;
+            flex:1;
+        }
+        .name_area .nim {
+            
+            display: block;
+            font-size: 1.2vw;
+            margin-left: 0.5vw;
+        }
+        .text_area {
+/*            border:1px solid green;*/
+/*            width: 77%;*/
+            display: flex;
+            align-items: center;
+        }
+        .textbox {
+  display: block;
+  width: 100%;
+            font-size: 2.5vw;
+            line-height: 3.2vw;
+        
+  overflow: hidden;
+            color: #444;
+            padding: 0.2vw 0;
+/*  min-height: 40px;*/
+/*  line-height: 20px;*/
+}
+        .textbox:hover {
+  resize: both;
+            
+        }
+        .disappear:fullscreen {
+display: none !important;            
+        }
+        button {
+            border:none;
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body controls id="fullscreen" >
+  <div class="disappear">
+   <button id="button" class="btn disappear">전체화면</button> <button id="duplicatebtn" onlick="duplicate()" class="disappear">댓글추가</button></div>
+    <div class="container">
+        <div class="title_area ">
+        <textarea class="input_title" rows="1" cols="1" spellcheck="false">제목 입력</textarea>
+        </div>
+        <div class="rp_area_cover">
+        <div class="rp_area">
+           <div class="rp_each">
+            <div class="name_area">
+               <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 700 700" class="user_icon">
+ <path d="m451.77 347.59c0 41.781-33.992 75.773-75.773 75.773s-75.773-33.992-75.773-75.773 33.992-75.773 75.773-75.773 75.773 33.996 75.773 75.773zm113.66 28.414c0 45.453-16.309 89.348-45.922 123.59-35.992 41.84-88.305 65.84-143.51 65.84-55.199 0-107.51-24-143.52-65.848-29.605-34.25-45.91-78.137-45.91-123.59 0-104.45 84.98-189.43 189.43-189.43 104.45 0.003906 189.43 84.98 189.43 189.43zm-18.941 0c0-94.012-76.48-170.49-170.49-170.49-94.012 0-170.49 76.48-170.49 170.49 0 37.473 12.348 73.746 34.895 103.26l11.973-11.973c16.109-16.109 37.527-24.98 60.305-24.98h126.64c22.777 0 44.195 8.875 60.305 24.984l11.969 11.969c22.555-29.523 34.898-65.785 34.898-103.26z" fill="#8d8d8d"/>
+</svg></div>
+               <div class="nametext" >
+               <span class="namebox" role="textbox" contenteditable>@@@</span>
+                </div>
+                <div class="nim"><span>님</span></div>
+            </div>
+            <div class="text_area">
+                <span class="textbox" role="textbox" contenteditable>댓글을 입력해주세요</span>
+            </div>
+            </div>
+           <div class="rp_each">
+            <div class="name_area">
+               <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 700 700" class="user_icon">
+ <path d="m451.77 347.59c0 41.781-33.992 75.773-75.773 75.773s-75.773-33.992-75.773-75.773 33.992-75.773 75.773-75.773 75.773 33.996 75.773 75.773zm113.66 28.414c0 45.453-16.309 89.348-45.922 123.59-35.992 41.84-88.305 65.84-143.51 65.84-55.199 0-107.51-24-143.52-65.848-29.605-34.25-45.91-78.137-45.91-123.59 0-104.45 84.98-189.43 189.43-189.43 104.45 0.003906 189.43 84.98 189.43 189.43zm-18.941 0c0-94.012-76.48-170.49-170.49-170.49-94.012 0-170.49 76.48-170.49 170.49 0 37.473 12.348 73.746 34.895 103.26l11.973-11.973c16.109-16.109 37.527-24.98 60.305-24.98h126.64c22.777 0 44.195 8.875 60.305 24.984l11.969 11.969c22.555-29.523 34.898-65.785 34.898-103.26z" fill="#8d8d8d"/>
+</svg></div>
+               <div class="nametext" >
+               <span class="namebox" role="textbox" contenteditable>@@@</span>
+                </div>
+                <div class="nim"><span>님</span></div>
+            </div>
+            <div class="text_area">
+                <span class="textbox" role="textbox" contenteditable>댓글을 입력해주세요</span>
+            </div>
+            </div>
+           <div class="rp_each">
+            <div class="name_area">
+               <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 700 700" class="user_icon">
+ <path d="m451.77 347.59c0 41.781-33.992 75.773-75.773 75.773s-75.773-33.992-75.773-75.773 33.992-75.773 75.773-75.773 75.773 33.996 75.773 75.773zm113.66 28.414c0 45.453-16.309 89.348-45.922 123.59-35.992 41.84-88.305 65.84-143.51 65.84-55.199 0-107.51-24-143.52-65.848-29.605-34.25-45.91-78.137-45.91-123.59 0-104.45 84.98-189.43 189.43-189.43 104.45 0.003906 189.43 84.98 189.43 189.43zm-18.941 0c0-94.012-76.48-170.49-170.49-170.49-94.012 0-170.49 76.48-170.49 170.49 0 37.473 12.348 73.746 34.895 103.26l11.973-11.973c16.109-16.109 37.527-24.98 60.305-24.98h126.64c22.777 0 44.195 8.875 60.305 24.984l11.969 11.969c22.555-29.523 34.898-65.785 34.898-103.26z" fill="#8d8d8d"/>
+</svg></div>
+               <div class="nametext" >
+               <span class="namebox" role="textbox" contenteditable>@@@</span>
+                </div>
+                <div class="nim"><span>님</span></div>
+            </div>
+            <div class="text_area">
+                <span class="textbox" role="textbox" contenteditable>댓글을 입력해주세요</span>
+            </div>
+            </div>
+           <div class="rp_each">
+            <div class="name_area">
+               <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 700 700" class="user_icon">
+ <path d="m451.77 347.59c0 41.781-33.992 75.773-75.773 75.773s-75.773-33.992-75.773-75.773 33.992-75.773 75.773-75.773 75.773 33.996 75.773 75.773zm113.66 28.414c0 45.453-16.309 89.348-45.922 123.59-35.992 41.84-88.305 65.84-143.51 65.84-55.199 0-107.51-24-143.52-65.848-29.605-34.25-45.91-78.137-45.91-123.59 0-104.45 84.98-189.43 189.43-189.43 104.45 0.003906 189.43 84.98 189.43 189.43zm-18.941 0c0-94.012-76.48-170.49-170.49-170.49-94.012 0-170.49 76.48-170.49 170.49 0 37.473 12.348 73.746 34.895 103.26l11.973-11.973c16.109-16.109 37.527-24.98 60.305-24.98h126.64c22.777 0 44.195 8.875 60.305 24.984l11.969 11.969c22.555-29.523 34.898-65.785 34.898-103.26z" fill="#8d8d8d"/>
+</svg></div>
+               <div class="nametext" >
+               <span class="namebox" role="textbox" contenteditable>@@@</span>
+                </div>
+                <div class="nim"><span>님</span></div>
+            </div>
+            <div class="text_area">
+                <span class="textbox" role="textbox" contenteditable>댓글을 입력해주세요</span>
+            </div>
+            </div>
+           <div class="rp_each" id="duplicate">
+            <div class="name_area">
+               <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 700 700" class="user_icon">
+ <path d="m451.77 347.59c0 41.781-33.992 75.773-75.773 75.773s-75.773-33.992-75.773-75.773 33.992-75.773 75.773-75.773 75.773 33.996 75.773 75.773zm113.66 28.414c0 45.453-16.309 89.348-45.922 123.59-35.992 41.84-88.305 65.84-143.51 65.84-55.199 0-107.51-24-143.52-65.848-29.605-34.25-45.91-78.137-45.91-123.59 0-104.45 84.98-189.43 189.43-189.43 104.45 0.003906 189.43 84.98 189.43 189.43zm-18.941 0c0-94.012-76.48-170.49-170.49-170.49-94.012 0-170.49 76.48-170.49 170.49 0 37.473 12.348 73.746 34.895 103.26l11.973-11.973c16.109-16.109 37.527-24.98 60.305-24.98h126.64c22.777 0 44.195 8.875 60.305 24.984l11.969 11.969c22.555-29.523 34.898-65.785 34.898-103.26z" fill="#8d8d8d"/>
+</svg></div>
+               <div class="nametext" >
+               <span class="namebox" role="textbox" contenteditable>@@@</span>
+                </div>
+                <div class="nim"><span>님</span></div>
+            </div>
+            <div class="text_area">
+                <span class="textbox" role="textbox" contenteditable>댓글을 입력해주세요</span>
+            </div>
+            </div>
+            
+        </div>
+        </div>
+    </div>
+    
+    <script>
+    window.addEventListener("load", function() {
+  document.querySelector(".btn").onclick =  function() {
+    this.nextElementSibling.requestFullscreen();
+  };
+        function resize(obj) {
+  obj.style.height = "1px";
+  obj.style.height = (12+obj.scrollHeight)+"px";
+}
+});
+    </script>
+    
+    <script>
+    document.getElementById('duplicatebtn').onclick = duplicate;
+
+
+var i = 0;
+var original = document.getElementById('duplicate');
+
+function duplicate() {
+    var clone = original.cloneNode(true); // "deep" clone
+    clone.id = "duplicate" + ++i; // there can only be one element with an ID
+    original.parentNode.appendChild(clone);
+}</script>
+
+</body>
+</html>
