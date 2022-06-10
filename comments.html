@@ -172,18 +172,41 @@
   resize: both;
             
         }
+        .disappear {
+            display: block;
+/*            width:500px;*/
+            margin:10px auto;
+/*            border:1px solid red;*/
+        }
         .disappear:fullscreen {
 display: none !important;            
         }
         button {
-            border:none;
-            background-color: transparent;
+            border: none;
+            background-color: #d9d9d9;
+            margin-right: 40px;
+            width:100px;
+            padding: 10px 0;
         }
+        button:hover {
+            background-color: #cdcdcd;
+        }
+        .hide {
+            display:none;
+            
+        }
+        
     </style>
 </head>
 <body controls id="fullscreen" >
   <div class="disappear">
-   <button id="button" class="btn disappear">전체화면</button> <button id="duplicatebtn" onlick="duplicate()" class="disappear">댓글추가</button></div>
+     <button class="enterFullscreenBtn hide" >Fullscreen</button>
+  <button class="exitFullscreenBtn hide">Cancel Fullscreen</button>
+  <button class="toggleFullscreenBtn">전체화면</button>
+     
+      <button id="duplicatebtn" onlick="duplicate()">댓글추가</button>
+      <p> 제목과 댓글을 입력한 다음... 전체화면을 눌러서 캡쳐해 주세요~!~!</p>
+      </div>
     <div class="container">
         <div class="title_area ">
         <textarea class="input_title" rows="1" cols="1" spellcheck="false">제목 입력</textarea>
@@ -266,15 +289,54 @@ display: none !important;
     </div>
     
     <script>
-    window.addEventListener("load", function() {
-  document.querySelector(".btn").onclick =  function() {
-    this.nextElementSibling.requestFullscreen();
-  };
-        function resize(obj) {
-  obj.style.height = "1px";
-  obj.style.height = (12+obj.scrollHeight)+"px";
+const enterFullscreenBtn = document.querySelector('.enterFullscreenBtn')
+const exitFullscreenBtn = document.querySelector('.exitFullscreenBtn')
+const toggleFullscreenBtn = document.querySelector('.toggleFullscreenBtn')
+
+const container = document.querySelector('.container')
+
+enterFullscreenBtn.addEventListener('click', e => {
+  fullscreen(container)
+})
+
+exitFullscreenBtn.addEventListener('click', e => {
+  exitFullScreen()
+})
+
+toggleFullscreenBtn.addEventListener('click', e => {
+  toggleFullScreen(container)
+})
+
+const fullscreen = element => {
+  if (element.requestFullscreen) return element.requestFullscreen()
+  if (element.webkitRequestFullscreen) return element.webkitRequestFullscreen()
+  if (element.mozRequestFullScreen) return element.mozRequestFullScreen()
+  if (element.msRequestFullscreen) return element.msRequestFullscreen()
 }
-});
+
+const exitFullScreen = () => {
+  if (document.exitFullscreen) return document.exitFullscreen()
+  if (document.webkitCancelFullscreen) return document.webkitCancelFullscreen()
+  if (document.mozCancelFullScreen) return document.mozCancelFullScreen()
+  if (document.msExitFullscreen) return document.msExitFullscreen()
+}
+
+function toggleFullScreen(element) {
+  if (!document.fullscreenElement) {
+    if (element.requestFullscreen) return element.requestFullscreen()
+    if (element.webkitRequestFullscreen)
+      return element.webkitRequestFullscreen()
+    if (element.mozRequestFullScreen) return element.mozRequestFullScreen()
+    if (element.msRequestFullscreen) return element.msRequestFullscreen()
+  } else {
+    if (document.exitFullscreen) return document.exitFullscreen()
+    if (document.webkitCancelFullscreen)
+      return document.webkitCancelFullscreen()
+    if (document.mozCancelFullScreen) return document.mozCancelFullScreen()
+    if (document.msExitFullscreen) return document.msExitFullscreen()
+  }
+}
+
     </script>
     
     <script>
